@@ -1,0 +1,9 @@
+<% if book.liked_by?(current_user) %>
+   <%= link_to(book_add_path(book), method: :delete, remote: true, id: :"like-button-#{book.id}") do %>
+       <i class="fa-lg fas fa-heart icon-btn liked"></i>
+   <% end %>
+<% else %>
+   <%= link_to(book_add_path(book), method: :book, remote: true, id: :"like-button-#{book.id}") do %>
+       <i class="fa-lg fas fa-heart icon-btn not-like"></i>
+   <% end %>
+<% end %>
