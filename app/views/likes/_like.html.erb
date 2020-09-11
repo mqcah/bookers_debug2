@@ -3,7 +3,7 @@
        <i class="fa-lg fas fa-heart icon-btn liked"></i>
    <% end %>
 <% else %>
-   <%= link_to(book_add_path(book), method: :book, remote: true, id: :"like-button-#{book.id}") do %>
+   <%= link_to(book_add_path(book), method: :post, remote: true, id: :"like-button-#{book.id}") do %>
        <i class="fa-lg fas fa-heart icon-btn not-like"></i>
    <% end %>
 <% end %>
