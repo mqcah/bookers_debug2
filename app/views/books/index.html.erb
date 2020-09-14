@@ -43,7 +43,7 @@
 					<td><%= book.body %></td>
 					<td>
 						<!-- いいね機能 -->
-						<%= render 'favorites/favorite' %>
+						<%= render 'favorites/favorite', book: book %>
 					</td>
 				</tr>
 				<% end %>
