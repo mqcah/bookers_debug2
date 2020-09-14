@@ -43,9 +43,7 @@
 					<td><%= book.body %></td>
 					<td>
 						<!-- いいね機能 -->
-						<div id="like-btn-<%= book.id %>">
-						   <%= render 'likes/like', book: book %>
-						</div>
+						<%= render 'favorites/favorite' %>
 					</td>
 				</tr>
 				<% end %>
