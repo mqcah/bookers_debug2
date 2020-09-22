@@ -1,3 +1,13 @@
+<% if @book.errors.any? %>
+	<div id="error_explanation">
+		<h3><%= @book.errors.count %> errors prohibited this obj from being saved:</h3>
+		<ul>
+		<% @book.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+		</ul>
+	</div>
+<% end %>
 <div class="row">
 	<div class="col-xs-3">
 
@@ -5,16 +15,6 @@
 		<%= render 'users/profile', user: current_user %>
 
 		<h2>New book</h2>
-		    <% if @book.errors.any? %>
-				<div id="error_explanation">
-					<h3><%= @book.errors.count %> errors prohibited this obj from being saved:</h3>
-					<ul>
-					<% @book.errors.full_messages.each do |message| %>
-					<li><%= message %></li>
-					<% end %>
-					</ul>
-				</div>
-		    <% end %>
 		<%= render 'books/newform', book: @book %>
 
 	</div>
@@ -28,6 +28,7 @@
 					<th></th>
 					<th>Title</th>
 					<th>Opinion</th>
+					<th colspan="3"></th>
 				</tr>
 			</thead>
 
@@ -36,22 +37,29 @@
 				<tr>
 					<td>
 						<%= link_to user_path(book.user) do %>
-							<%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %>
+						<%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %>
 						<% end %>
 					</td>
 					<td><%= link_to book.title, book_path(book), class: "book_#{book.id}" %></td>
 					<td><%= book.body %></td>
-					<td>
-						<!-- いいね機能 -->
-						<%= render 'favorites/favorite', book: book %>
-					</td>
+					<!-- いいね機能 -->
+          <td>
+            <% if book.favorited_by?(current_user) %>
+              <%= link_to book_favorites_path(book), method: :delete do %>
+                <span class="glyphicon glyphicon-heart"><%= book.favorites.count%></span>
+              <% end %>
+            <% else %>
+              <%= link_to book_favorites_path(book), method: :post do %>
+                <span class="glyphicon glyphicon-heart-empty"><%= book.favorites.count %></span>
+              <% end %>
+            <% end %>
+          </td>
+					<!-- いいね機能 -->
+          <td>コメント数：<%= book.book_comments.count %></td>
 				</tr>
 				<% end %>
 			</tbody>
 		</table>
-
 		<!--books一覧 -->
-
-
 	</div>
 </div>
